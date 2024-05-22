@@ -1,9 +1,9 @@
 import express from "express";
 import {
-	createProductCtrl,
-	getProduct,
-	getSingleProduct,
-	updateProduct,
+  createProductCtrl,
+  getProduct,
+  getSingleProduct,
+  updateProduct,
 } from "../controllers/productCtrl.js";
 import { isLoggedIn } from "../middlewares/isLoggedIn.js";
 import { isAdmin } from "../middlewares/isAdmin.js";

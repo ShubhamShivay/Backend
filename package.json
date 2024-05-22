@@ -1,39 +1,39 @@
 {
-	"name": "e-commerce",
-	"version": "1.0.0",
-	"description": "E-Commerce Website",
-	"main": "server.js",
-	"type": "module",
-	"scripts": {
-		"server": "nodemon server.js",
-		"start": "node server.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/ShubhamShivay/BackendProject.git"
-	},
-	"keywords": [
-		"E-commerce",
-		"Backend",
-		"Project",
-		"API",
-		"NodeJS"
-	],
-	"author": "Shubham Kumar",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/ShubhamShivay/BackendProject/issues"
-	},
-	"homepage": "https://github.com/ShubhamShivay/BackendProject#readme",
-	"dependencies": {
-		"bcryptjs": "^2.4.3",
-		"dotenv": "^16.4.5",
-		"express": "^4.19.2",
-		"express-async-handler": "^1.2.0",
-		"jsonwebtoken": "^9.0.2",
-		"mongoose": "^8.4.0"
-	},
-	"devDependencies": {
-		"nodemon": "^3.1.0"
-	}
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "description": "E-Commerce Website",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "server": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShubhamShivay/BackendProject.git"
+  },
+  "keywords": [
+    "E-commerce",
+    "Backend",
+    "Project",
+    "API",
+    "NodeJS"
+  ],
+  "author": "Shubham Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShubhamShivay/BackendProject/issues"
+  },
+  "homepage": "https://github.com/ShubhamShivay/BackendProject#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
 }
