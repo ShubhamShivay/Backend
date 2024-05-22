@@ -7,6 +7,7 @@ import Product from "../model/Product.js";
 //! @access  Private/Admin
 
 export const createProductCtrl = asyncHandler(async (req, res) => {
+	console.log(req.user);
 	const {
 		name,
 		discription,
@@ -160,23 +161,11 @@ export const getSingleProduct = asyncHandler(async (req, res) => {
 export const updateProduct = asyncHandler(async (req, res) => {
 	// Check if user is Admin
 
-	const {
-		name,
-		discription,
-		brand,
-		category,
-		sizes,
-		colors,
-		user,
-		price,
-		totalQty,
-	} = req.body;
-
 	// Product exist
-	const product = await Product.findById(
+	const product = await Product.findByIdAndUpdate(
 		req.params.id,
 		{
-			price,
+			$set: req.body,
 		},
 		{
 			new: true,

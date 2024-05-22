@@ -7,6 +7,6 @@ export const isAdmin = asyncHandler(async (req, res, next) => {
 		next();
 	} else {
 		res.status(401);
-		throw new Error("Not authorized as an admin");
+		throw new Error("You are not authorized because you are not admin");
 	}
 });

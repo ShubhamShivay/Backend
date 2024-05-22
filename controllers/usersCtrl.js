@@ -60,7 +60,11 @@ export const loginUserCtrl = asyncHandler(async (req, res) => {
 		status: "Success",
 		message: "User Login Successful",
 		data: user,
-		token: generateToken(user?._id),
+		token: generateToken({
+			id: user._id,
+			isAdmin: user.isAdmin,
+			email: user.email,
+		}),
 	});
 });
 
