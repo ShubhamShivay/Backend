@@ -178,3 +178,19 @@ export const updateProduct = asyncHandler(async (req, res) => {
 		product,
 	});
 });
+
+//! @desc    Delete product
+//! @route   DELETE /api/v1/products:id
+//! @access  Private/Admin
+
+export const deleteProduct = asyncHandler(async (req, res) => {
+	const product = await Product.findByIdAndDelete(req.params.id);
+	if (!product) {
+		throw new Error("Product not found");
+	}
+
+	res.json({
+		status: "Success",
+		message: "Product deleted Successfully",
+	});
+});

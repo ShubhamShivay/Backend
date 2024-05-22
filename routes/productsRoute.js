@@ -4,6 +4,7 @@ import {
 	getProduct,
 	getSingleProduct,
 	updateProduct,
+	deleteProduct,
 } from "../controllers/productCtrl.js";
 import { isLoggedIn } from "../middlewares/isLoggedIn.js";
 import { isAdmin } from "../middlewares/isAdmin.js";
@@ -14,5 +15,6 @@ productsRouter.post("/", isLoggedIn, createProductCtrl);
 productsRouter.get("/", getProduct);
 productsRouter.get("/:id", getSingleProduct);
 productsRouter.put("/:id", isLoggedIn, isAdmin, updateProduct);
+productsRouter.delete("/:id/delete", isLoggedIn, isAdmin, deleteProduct);
 
 export default productsRouter;
