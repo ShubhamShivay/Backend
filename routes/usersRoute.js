@@ -1,9 +1,9 @@
 import express from "express";
 import {
-	registerUserCtrl,
-	loginUserCtrl,
-	getAllUsersCtrl,
-	getUserProfileCtrl,
+  registerUserCtrl,
+  loginUserCtrl,
+  getAllUsersCtrl,
+  getUserProfileCtrl,
 } from "../controllers/usersCtrl.js";
 import { isLoggedIn } from "../middlewares/isLoggedIn.js";
 
