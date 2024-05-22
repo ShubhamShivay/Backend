@@ -11,7 +11,7 @@ export const isLoggedIn = (req, res, next) => {
 		// console.log("Token Expired/Invalid");
 		throw new Error("Token expired, Please login again");
 	} else {
-		req.userAuthId = decodedUser?.id;
+		req.user = decodedUser?.payload;
 		next();
 	}
 };
