@@ -5,16 +5,18 @@ import {
 	getSingleProduct,
 	updateProduct,
 	deleteProduct,
+	getProductsByCategory,
 } from "../controllers/productCtrl.js";
 import { isLoggedIn } from "../middlewares/isLoggedIn.js";
-import { isAdmin } from "../middlewares/isAdmin.js";
+// import { isAdmin } from "../middlewares/isAdmin.js";
 
 const productsRouter = express.Router();
 
 productsRouter.post("/", isLoggedIn, createProductCtrl);
 productsRouter.get("/", getProduct);
 productsRouter.get("/:id", getSingleProduct);
-productsRouter.put("/:id", isLoggedIn, isAdmin, updateProduct);
-productsRouter.delete("/:id/delete", isLoggedIn, isAdmin, deleteProduct);
+productsRouter.get("/category", getProductsByCategory);
+productsRouter.put("/:id", isLoggedIn, updateProduct);
+productsRouter.delete("/:id/delete", isLoggedIn, deleteProduct);
 
 export default productsRouter;

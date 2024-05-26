@@ -5,9 +5,9 @@ import generateToken from "../utils/generateToken.js";
 import { getTokenFromHeader } from "../utils/getTokenFromHeader.js";
 import { verifyToken } from "../utils/verifyToken.js";
 
-// @desc Get all users
-// @route POST /api/v1/users/register
-// @access Private/Admin
+// @desc	Create users
+// @route	POST /api/v1/users/register
+// @access	Public
 
 export const registerUserCtrl = asyncHandler(async (req, res) => {
 	const { fullname, email, password } = req.body;
@@ -28,7 +28,6 @@ export const registerUserCtrl = asyncHandler(async (req, res) => {
 		fullname,
 		email,
 		password: hashedPassword,
-		isAdmin: false,
 	});
 	res.status(201).json({
 		status: "Success",
@@ -37,9 +36,9 @@ export const registerUserCtrl = asyncHandler(async (req, res) => {
 	});
 });
 
-// @desc Login user
-// @route POST /api/v1/users/login
-// @access Private/Admin
+//! @desc Login user
+//! @route POST /api/v1/users/login
+//! @access Private/Admin
 
 export const loginUserCtrl = asyncHandler(async (req, res) => {
 	const { email, password } = req.body;
@@ -68,9 +67,9 @@ export const loginUserCtrl = asyncHandler(async (req, res) => {
 	});
 });
 
-// @desc Get all users
-// @route GET /api/v1/users
-// @access Private/Admin
+//! @desc Get all users
+//! @route GET /api/v1/users
+//! @access Private/Admin
 export const getAllUsersCtrl = asyncHandler(async (req, res) => {
 	const { email, password } = req.body;
 
@@ -100,17 +99,58 @@ export const getAllUsersCtrl = asyncHandler(async (req, res) => {
 	});
 });
 
-// @desc Get user Profile
-// @route GET /api/v1/users/profile
-// @access Private
+//! @desc Get Single user Profile
+//! @route GET /api/v1/users/profile
+//! @access Public
 export const getUserProfileCtrl = asyncHandler(async (req, res) => {
-	// Get Token from header
-	const token = getTokenFromHeader(req);
-	// Verify Token
-	const verified = verifyToken(token);
-	console.log(verified);
+	const user = await User.findById(req.params.id);
+	if (!user) {
+		throw new Error("User does not exist");
+	}
 
 	res.json({
 		message: "User Profile",
+		data: user,
+	});
+});
+
+//! @desc Update user Profile
+//! @route PUT /api/v1/users/profile
+//! @access Private
+export const updateUserProfileCtrl = asyncHandler(async (req, res) => {
+	const user = await User.findByIdAndUpdate(req.params.id);
+
+	if (!user) {
+		throw new Error("User does not exist");
+	}
+
+	// Update user
+	const updatedUser = await User.findByIdAndUpdate(
+		req.params.id,
+		{
+			$set: req.body,
+		},
+		{
+			new: true,
+		}
+	);
+
+	res.json({
+		message: "User Profile",
+		data: updatedUser,
+	});
+});
+
+//! @desc Delete user
+//! @route DELETE /api/v1/users/:id
+//! @access Private/Admin
+export const deleteUserCtrl = asyncHandler(async (req, res) => {
+	const user = await User.findByIdAndDelete(req.params.id);
+	if (!user) {
+		throw new Error("User does not exist");
+	}
+	res.json({
+		status: "Success",
+		message: "User Deleted Successfully",
 	});
 });

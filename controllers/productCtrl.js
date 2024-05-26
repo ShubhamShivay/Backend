@@ -1,5 +1,8 @@
 import asyncHandler from "express-async-handler";
 import Product from "../model/Product.js";
+import Category from "../model/Category.js";
+import Brand from "../model/Brand.js";
+import Color from "../model/Color.js";
 // import User from "../model/User.js";
 
 //! @desc    Create new product
@@ -8,22 +11,39 @@ import Product from "../model/Product.js";
 
 export const createProductCtrl = asyncHandler(async (req, res) => {
 	console.log(req.user);
-	const {
-		name,
-		discription,
-		brand,
-		category,
-		sizes,
-		colors,
-		user,
-		price,
-		totalQty,
-	} = req.body;
-	// Product exist
+	const { name, discription, brand, category, sizes, colors, price, totalQty } =
+		req.body;
+	//! Product exist
 	const productExist = await Product.findOne({ name });
 	if (productExist) {
 		throw new Error("Product already exist");
 	}
+
+	//! Find the category
+	const categoryFound = await Category.findOne({ name: category });
+	if (!categoryFound) {
+		throw new Error(
+			"Category not found, Please create category first or check category name"
+		);
+	}
+
+	//! find the brand
+	const brandFound = await Brand.findOne({ name: brand });
+	if (!brandFound) {
+		throw new Error(
+			"Brand not found, Please create brand first or check brand name"
+		);
+	}
+
+	//! Find the Color
+	const colorFound = await Color.findOne({ name: colors });
+	if (!colorFound) {
+		throw new Error(
+			"Color not found, Please create color first or check color name"
+		);
+	}
+
+	// Find the Size
 
 	// Create the product
 	const product = await Product.create({
@@ -38,7 +58,18 @@ export const createProductCtrl = asyncHandler(async (req, res) => {
 		totalQty,
 	});
 
-	// push the product into category
+	//! push the product into category
+	categoryFound.product.push(product._id);
+	await categoryFound.save();
+
+	//! push the product into brand
+	brandFound.product.push(product._id);
+	await brandFound.save();
+
+	//! push the product into color
+	colorFound.product.push(product._id);
+	await colorFound.save();
+
 	res.json({
 		status: "Success",
 		message: "Product created successfully",
@@ -124,7 +155,7 @@ export const getProduct = asyncHandler(async (req, res) => {
 	}
 
 	//Await the querry
-	const products = await productQuery;
+	const products = await productQuery.populate("reviews");
 
 	//Send the response
 	res.json({
@@ -142,7 +173,7 @@ export const getProduct = asyncHandler(async (req, res) => {
 //! @access  Public
 
 export const getSingleProduct = asyncHandler(async (req, res) => {
-	const product = await Product.findById(req.params.id);
+	const product = await Product.findById(req.params.id).populate("reviews");
 	if (!product) {
 		throw new Error("Product not found");
 	}
@@ -192,5 +223,18 @@ export const deleteProduct = asyncHandler(async (req, res) => {
 	res.json({
 		status: "Success",
 		message: "Product deleted Successfully",
+	});
+});
+
+//! @desc    Find Products by category
+//! @route   GET /api/v1/products/category/:category
+//! @access  Public
+
+export const getProductsByCategory = asyncHandler(async (req, res) => {
+	const products = await Product.find({ category: req.params.category });
+	res.json({
+		status: "Success",
+		message: "Products fetched Successfully",
+		products,
 	});
 });

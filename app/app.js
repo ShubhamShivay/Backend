@@ -8,6 +8,10 @@ import {
 	notFound,
 } from "../middlewares/globalErrorHandler.js";
 import productsRouter from "../routes/productsRoute.js";
+import categoriesRouter from "../routes/categoriesRouter.js";
+import brandRoutes from "../routes/brandRoutes.js";
+import colorRoute from "../routes/colorRoute.js";
+import reviewRouter from "../routes/reviewRouter.js";
 
 dbConnect();
 const app = express();
@@ -18,6 +22,10 @@ app.use(express.json());
 // Routes
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/products", productsRouter);
+app.use("/api/v1/categories", categoriesRouter);
+app.use("/api/v1/brands", brandRoutes);
+app.use("/api/v1/colors", colorRoute);
+app.use("/api/v1/reviews", reviewRouter);
 
 // Error Handling
 app.use(notFound);
