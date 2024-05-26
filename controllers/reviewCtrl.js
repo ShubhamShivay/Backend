@@ -20,7 +20,7 @@ export const createReviewCtrl = asyncHandler(async (req, res) => {
 	//! Check if review exist
 	const hasReviewed = productFound?.reviews?.find((review) => {
 		console.log(review);
-		return review?.user?.toString() === req.userAuthId?.toString();
+		return review?.user?.toString() === req.user?.toString();
 	});
 
 	console.log(hasReviewed);
