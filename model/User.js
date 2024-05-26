@@ -20,7 +20,7 @@ const userSchema = new Schema(
 			type: Boolean,
 			default: false,
 		},
-		order: [
+		orders: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
 				ref: "Order",

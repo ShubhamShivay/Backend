@@ -12,6 +12,7 @@ import categoriesRouter from "../routes/categoriesRouter.js";
 import brandRoutes from "../routes/brandRoutes.js";
 import colorRoute from "../routes/colorRoute.js";
 import reviewRouter from "../routes/reviewRouter.js";
+import orderRouter from "../routes/orderRouter.js";
 
 dbConnect();
 const app = express();
@@ -26,6 +27,7 @@ app.use("/api/v1/categories", categoriesRouter);
 app.use("/api/v1/brands", brandRoutes);
 app.use("/api/v1/colors", colorRoute);
 app.use("/api/v1/reviews", reviewRouter);
+app.use("/api/v1/orders", orderRouter);
 
 // Error Handling
 app.use(notFound);
