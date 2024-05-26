@@ -20,6 +20,7 @@ export const createReviewCtrl = asyncHandler(async (req, res) => {
     return review?.user?.toString() === req.user?.id?.toString();
   });
 
+
   if (hasReviewed) {
     throw new Error("You have already reviewed this product");
   }
@@ -34,6 +35,18 @@ export const createReviewCtrl = asyncHandler(async (req, res) => {
   //! Save the review
   productFound.reviews.push(review?._id);
   await productFound.save();
+=======
+	//! Check if review exist
+	const hasReviewed = productFound?.reviews?.find((review) => {
+		console.log(review);
+		return review?.user?.toString() === req.user?.toString();
+	});
+
+	console.log(hasReviewed);
+	if (hasReviewed) {
+		throw new Error("You have already reviewed this product");
+	}
+
 
   res.status(201).json({
     status: "Success",
