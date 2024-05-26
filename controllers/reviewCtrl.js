@@ -19,10 +19,11 @@ export const createReviewCtrl = asyncHandler(async (req, res) => {
 
 	//! Check if review exist
 	const hasReviewed = productFound?.reviews?.find((review) => {
-		return review?.user?.toString() === req.user?.toString();
+		console.log(review);
+		return review?.user?.toString() === req.userAuthId?.toString();
 	});
 
-	// console.log(hasReviewed);
+	console.log(hasReviewed);
 	if (hasReviewed) {
 		throw new Error("You have already reviewed this product");
 	}
