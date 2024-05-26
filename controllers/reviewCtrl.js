@@ -7,40 +7,37 @@ import Product from "../model/Product.js";
 //! @access  Private
 
 export const createReviewCtrl = asyncHandler(async (req, res) => {
-	const { product, rating, comment } = req.body;
-	//! Check if product exist
-	const { productID } = req.params;
-	const productFound = await Product.findById(productID).populate("reviews");
-	if (!productFound) {
-		throw new Error("Product not found");
-	}
+  const { product, rating, comment } = req.body;
+  //! Check if product exist
+  const { productID } = req.params;
+  const productFound = await Product.findById(productID).populate("reviews");
+  if (!productFound) {
+    throw new Error("Product not found");
+  }
 
-	// console.log(productFound);
+  //! Check if review exist
+  const hasReviewed = productFound?.reviews?.find((review) => {
+    return review?.user?.toString() === req.user?.id?.toString();
+  });
 
-	//! Check if review exist
-	const hasReviewed = productFound?.reviews?.find((review) => {
-		return review?.user?.toString() === req.user?.toString();
-	});
+  if (hasReviewed) {
+    throw new Error("You have already reviewed this product");
+  }
 
-	// console.log(hasReviewed);
-	if (hasReviewed) {
-		throw new Error("You have already reviewed this product");
-	}
+  //! Create review
+  const review = await Review.create({
+    rating,
+    comment,
+    product: productFound?._id,
+    user: req.user.id,
+  });
+  //! Save the review
+  productFound.reviews.push(review?._id);
+  await productFound.save();
 
-	//! Create review
-	const review = await Review.create({
-		rating,
-		comment,
-		product: productFound?._id,
-		user: req.user,
-	});
-	//! Save the review
-	productFound.reviews.push(review?._id);
-	await productFound.save();
-
-	res.status(201).json({
-		status: "Success",
-		message: "Review created successfully",
-		review,
-	});
+  res.status(201).json({
+    status: "Success",
+    message: "Review created successfully",
+    // review,
+  });
 });
