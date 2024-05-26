@@ -14,12 +14,12 @@ const OrderSchema = new Schema(
 		},
 		orderItems: [
 			{
-				type: mongoose.Schema.Types.Object,
+				type: {},
 				required: true,
 			},
 		],
 		shippingAddress: {
-			type: mongoose.Schema.Types.Object,
+			type: {},
 			required: true,
 		},
 		orderNumber: {

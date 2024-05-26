@@ -15,7 +15,7 @@ export const createColorCtrl = asyncHandler(async (req, res) => {
 
 	const color = await Color.create({
 		name: name.toLowerCase(),
-		user: req.user,
+		user: req.user.id,
 	});
 	res.status(201).json({
 		status: "Success",
