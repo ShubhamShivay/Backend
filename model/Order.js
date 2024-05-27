@@ -14,12 +14,13 @@ const OrderSchema = new Schema(
 		},
 		orderItems: [
 			{
-				type: {},
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "Product",
 				required: true,
 			},
 		],
 		shippingAddress: {
-			type: {},
+			type: String,
 			required: true,
 		},
 		orderNumber: {
