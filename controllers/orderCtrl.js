@@ -14,7 +14,7 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
 		totalPrice,
 	} = req.body;
 	/* 
-    console.log({
+	console.log({
 		orderItems,
 		shippingAddress,
 		totalPrice,
@@ -55,7 +55,7 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
 			product.save();
 		}
 	});
-
+	res.status(201).json({ message: "Order successfully saved", order });
 	// Make Payment(Stripe)
 	// Payment webhook
 	// Update the user order
