@@ -14,11 +14,11 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
 		totalPrice,
 	} = req.body;
 	/* 
-	console.log({
-		orderItems,
-		shippingAddress,
-		totalPrice,
-	}); */
+    console.log({
+        orderItems,
+        shippingAddress,
+        totalPrice,
+    }); */
 
 	// Find the user
 	const user = await User.findById(req.user.id);
