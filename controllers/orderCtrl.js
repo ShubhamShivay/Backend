@@ -59,6 +59,7 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
 		status: "Success",
 		message: "Order successfully saved",
 		order,
+		user,
 	});
 	// Make Payment(Stripe)
 	// Payment webhook
