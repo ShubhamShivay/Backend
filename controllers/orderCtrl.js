@@ -51,7 +51,7 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
 			return product?._id?.toString === order?._id?.toString;
 		});
 		if (product) {
-			product.totalSold += order?.qty;
+			product.totalSold += order?.totalBuyQty;
 			await product.save();
 		}
 	});
