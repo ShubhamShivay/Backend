@@ -52,7 +52,7 @@ const userSchema = new Schema(
 			country: {
 				type: String,
 			},
-			postalCode: {
+			pincode: {
 				type: String,
 			},
 			phone: {

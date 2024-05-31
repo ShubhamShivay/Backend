@@ -7,12 +7,13 @@ import {
 	updateColorCtrl,
 } from "../controllers/colorCtrl.js";
 import { isLoggedIn } from "../middlewares/isLoggedIn.js";
+import { isAdmin } from "../middlewares/isAdmin.js";
 
 const colorRoute = express.Router();
 
-colorRoute.post("/", isLoggedIn, createColorCtrl);
-colorRoute.put("/:id", isLoggedIn, updateColorCtrl);
-colorRoute.delete("/:id", isLoggedIn, deleteColorCtrl);
+colorRoute.post("/", isLoggedIn, isAdmin, createColorCtrl);
+colorRoute.put("/:id", isLoggedIn, isAdmin, updateColorCtrl);
+colorRoute.delete("/:id", isLoggedIn, isAdmin, deleteColorCtrl);
 colorRoute.get("/", getAllColorsCtrl);
 colorRoute.get("/:id", getSingleColorCtrl);
 

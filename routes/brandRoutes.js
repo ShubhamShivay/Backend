@@ -11,10 +11,10 @@ import {
 
 const brandRouter = express.Router();
 
-brandRouter.post("/create", isLoggedIn, createBrandCtrl);
+brandRouter.post("/create", isLoggedIn, isAdmin, createBrandCtrl);
 brandRouter.get("/all", getAllBrandsCtrl);
 brandRouter.get("/:id", getSingleBrandCtrl);
-brandRouter.put("/:id", isLoggedIn, updateBrandCtrl);
-brandRouter.delete("/:id", isLoggedIn, deleteBrandCtrl);
+brandRouter.put("/:id", isLoggedIn, isAdmin, updateBrandCtrl);
+brandRouter.delete("/:id", isLoggedIn, isAdmin, deleteBrandCtrl);
 
 export default brandRouter;

@@ -102,8 +102,9 @@ export const getAllUsersCtrl = asyncHandler(async (req, res) => {
 //! @desc Get Single user Profile
 //! @route GET /api/v1/users/profile
 //! @access Public
+
 export const getUserProfileCtrl = asyncHandler(async (req, res) => {
-	const user = await User.findById(req.params.id);
+	const user = await User.findById(req.user.id).populate("orders");
 	if (!user) {
 		throw new Error("User does not exist");
 	}
@@ -152,5 +153,39 @@ export const deleteUserCtrl = asyncHandler(async (req, res) => {
 	res.json({
 		status: "Success",
 		message: "User Deleted Successfully",
+	});
+});
+
+//! @desc	Update user shipping address
+//! @route	PUT /api/v1/users/update/shipping
+//! @access	Private
+
+export const updateShippingAddress = asyncHandler(async (req, res) => {
+	const { firstName, lastName, address, city, country, pincode, phone } =
+		req.body;
+
+	const user = await User.findByIdAndUpdate(
+		req.user.id,
+		{
+			shippingAddress: {
+				firstName,
+				lastName,
+				address,
+				city,
+				country,
+				pincode,
+				phone,
+			},
+			hasShippingAddress: true,
+		},
+		{
+			new: true,
+		}
+	);
+	//! Send the response
+	res.json({
+		status: "Success",
+		message: "User shipping address updated successfully.",
+		user,
 	});
 });

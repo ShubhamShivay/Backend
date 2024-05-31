@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { v4 } from "uuid";
 
 const Schema = mongoose.Schema;
 
@@ -81,7 +82,13 @@ const OrderSchema = new Schema(
 		status: {
 			type: String,
 			default: "Pending",
-			enum: ["Pending", "Processing", "Shipped", "Delivered", "Cancelled"],
+			enum: [
+				"Pending",
+				"Processing",
+				"Shipped",
+				"Delivered",
+				"Cancelled",
+			],
 		},
 		deleveredAt: {
 			type: Date,
@@ -93,5 +100,5 @@ const OrderSchema = new Schema(
 );
 
 //Compile to form model
-const Object = mongoose.model("Order", OrderSchema);
-export default Object;
+const Order = mongoose.model("Order", OrderSchema);
+export default Order;

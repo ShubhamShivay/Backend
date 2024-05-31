@@ -1,13 +1,15 @@
-import asyncHandler from "express-async-handler";
+import User from "../model/User.js";
 
-//Check if user is Admin using token
-
-export const isAdmin = asyncHandler(async (req, res, next) => {
-	console.log(req.user);
-	if (req.user && req.user.isAdmin) {
-		next();
-	} else {
-		res.status(401);
-		throw new Error("You are not authorized because you are not Admin");
+export const isAdmin = async (req, res, next) => {
+	//! find the login user
+	const user = await User.findById(req.user.id);
+	//! Check user is Amin
+	if (!user.isAdmin) {
+		return res.status(401).json({
+			status: "Failed",
+			message: "Unauthorized, Access Denied, Admin only",
+		});
 	}
-});
+
+	return next();
+};

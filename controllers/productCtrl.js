@@ -10,9 +10,19 @@ import Color from "../model/Color.js";
 //! @access  Private/Admin
 
 export const createProductCtrl = asyncHandler(async (req, res) => {
-	console.log(req.user);
-	const { name, discription, brand, category, sizes, colors, price, totalQty } =
-		req.body;
+	//! Image files
+	const imagelink = req.files.map((file) => file.path);
+
+	const {
+		name,
+		discription,
+		brand,
+		category,
+		sizes,
+		colors,
+		price,
+		totalQty,
+	} = req.body;
 	//! Product exist
 	const productExist = await Product.findOne({ name });
 	if (productExist) {
@@ -56,6 +66,7 @@ export const createProductCtrl = asyncHandler(async (req, res) => {
 		user: req.userAuthId,
 		price,
 		totalQty,
+		image: imagelink,
 	});
 
 	//! push the product into category
