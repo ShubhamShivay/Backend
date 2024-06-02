@@ -7,7 +7,7 @@ import {
 	getSingleBrandCtrl,
 	updateBrandCtrl,
 	deleteBrandCtrl,
-} from "../controllers/BrandCtrl.js";
+} from "../controllers/brandCtrl.js";
 
 const brandRouter = express.Router();
 
