@@ -21,7 +21,7 @@ productsRouter.post(
 	upload.array("files"),
 	createProductCtrl
 );
-productsRouter.get("/", isLoggedIn, getProduct);
+productsRouter.get("/", getProduct);
 productsRouter.get("/:id", getSingleProduct);
 productsRouter.get("/category", getProductsByCategory);
 productsRouter.put("/:id", isLoggedIn, isAdmin, updateProduct);
