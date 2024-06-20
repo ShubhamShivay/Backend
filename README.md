@@ -1,6 +1,6 @@
-This is a E-Commerce (backend) web API.
+This is a E-Commerce (backend) web API.\n
 Project Features:
-    1.User - Create account/login/update/delete.
+    1.User - Create account/login/update/delete.\n
     2.Product- Create/read/update/dalete
        You can find products by category/colour/size
     3.Admin- admin can perform all operations.
